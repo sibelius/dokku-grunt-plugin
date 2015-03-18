@@ -25,9 +25,13 @@ case "$1" in
     echo "-----> Deploy complete!"
 
     CMD=$(cat <<EOF
-    echo $(pwd) &&
-    command -v npm >/dev/null 2>&1 || echo 'error npm' &&
-    command -v grunt >/dev/null 2>&1 || echo 'error grunt' &&
+    npm install -g grunt &&
+    npm install -g grunt-cli &&
+    npm install -g bower &&
+    npm update &&
+    bower --allow-root install &&
+    bower --allow-root update &&
+    grunt build:$TYPE
     EOF
     )
 
@@ -37,7 +41,6 @@ case "$1" in
     docker commit $id $IMAGE > /dev/null
     echo "-----> Built Grunt"
     ;;
-
 
   help)
     cat && cat<<EOF
