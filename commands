@@ -4,7 +4,7 @@ source "$(dirname $0)/../common/functions"
 
 TYPE="$3"
 
-CMD=$(cat <<EOF
+CMD=$(cat <<EOF &&
 cd "/app" &&
 npm install -g grunt &&
 npm install -g grunt-cli &&
