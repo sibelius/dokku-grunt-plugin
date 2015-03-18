@@ -32,6 +32,8 @@ case "$1" in
     # Compile with Grunt
     echo "-----> Compiling with grunt build:$TYPE"
 
+    echo "$CMD"
+
     #id=$(docker run -d $IMAGE /bin/bash -c "$CMD")
     #docker attach $id
     #test $(docker wait $id) -eq 0
