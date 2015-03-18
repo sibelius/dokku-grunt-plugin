@@ -41,6 +41,11 @@ case "$1" in
     #docker attach $id
     #test $(docker wait $id) -eq 0
     #docker commit $id $IMAGE > /dev/null
+
+    ID=$(docker run -i -a stdin $IMAGE /bin/bash -c "$CMD")
+    test $(docker wait $ID) -eq 0
+    docker commit $ID $IMAGE > /dev/null
+
     echo "-----> Built Grunt"
     ;;
 
