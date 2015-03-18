@@ -15,7 +15,7 @@ npm install -g bower &&
 npm update &&
 bower --allow-root install &&
 bower --allow-root update &&
-grunt build:$TYPE &&
+grunt build:$TYPE
 )
 
 case "$1" in
@@ -28,8 +28,7 @@ case "$1" in
     if [[ -z $3 ]]; then
         echo "Usage: dokku grunt APP BUILDTYPE"
         exit 1
-    fi
-                                                                                
+    fi 
     TYPE="$3"
     # Compile with Grunt
     echo "-----> Compiling with grunt build:$TYPE"
