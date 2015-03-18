@@ -40,10 +40,9 @@ case "$1" in
     echo "$CMD"
 
     echo 'docker run'
-    #ID=$(docker run -i -a stdin $IMAGE /bin/bash -c "$CMD")
-    ID=$(docker -D=true run -i -a stdin $IMAGE pwd)
-    dokku logs "$ID"
+    ID=$(docker -D run -i -a stdin $IMAGE /bin/bash -c "$CMD")
     echo "$ID"
+    dokku logs "$ID"
     echo 'docker attach'
     docker attach $ID
     echo 'docker wait'
