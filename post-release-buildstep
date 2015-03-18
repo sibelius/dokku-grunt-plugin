@@ -1,0 +1,25 @@
+#!/bin/bash
+
+set -eo pipefail; [[ $DOKKU_TRACE ]] && set -x
+
+APP="$1"; IMAGE="dokku/$APP"
+echo "-----> Building Node app ..."
+CMD=$(cat <<EOF
+cd "/app" &&
+new_path="\$(find / -name npm | tail -1 | xargs -I % sh -c "dirname %")" &&
+PATH="\$PATH:\$new_path" &&
+PATH="\$PATH:\$(npm bin)" &&
+npm install -g grunt &&
+npm install -g grunt-cli &&
+npm install -g bower &&
+npm update &&
+bower --allow-root install &&
+bower --allow-root update &&
+EOF
+)
+
+id=$(docker run -d $IMAGE /bin/bash -c "$COMMAND")
+docker attach $id
+test $(docker wait $id) -eq 0
+docker commit $id $IMAGE > /dev/null
+echo "-----> Built Node"
