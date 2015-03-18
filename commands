@@ -46,7 +46,7 @@ case "$1" in
     test $(docker wait $ID) -eq 0
     docker commit $ID $IMAGE > /dev/null
 
-    echo "-----> Built Grunt"
+    echo "-----> Finished commands"
     ;;
 
   help)
