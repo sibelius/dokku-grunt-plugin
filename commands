@@ -18,21 +18,21 @@ case "$1" in
     # Compile with Grunt
     echo "-----> Compiling with grunt build:$TYPE"
 
-    CMD=$(cat <<EOF
-    cd "/app" &&
-    new_path="\$(find / -name npm | tail -1 | xargs -I % sh -c "dirname %")" &&
-    PATH="\$PATH:\$new_path" &&
-    PATH="\$PATH:\$(npm bin)" &&
-    npm install -g grunt &&
-    npm install -g grunt-cli &&
-    npm install -g bower &&
-    npm update &&
-    bower --allow-root install &&
-    bower --allow-root update &&
-    EOF
-    )
+    #CMD=$(cat <<EOF
+    #cd "/app" &&
+    #new_path="\$(find / -name npm | tail -1 | xargs -I % sh -c "dirname %")" &&
+    #PATH="\$PATH:\$new_path" &&
+    #PATH="\$PATH:\$(npm bin)" &&
+    #npm install -g grunt &&
+    #npm install -g grunt-cli &&
+    #npm install -g bower &&
+    #npm update &&
+    #bower --allow-root install &&
+    #bower --allow-root update &&
+    #EOF
+    #)
     
-    echo "$CMD"
+    #echo "$CMD"
 
     #id=$(docker run -d $IMAGE /bin/bash -c "$CMD")
     #docker attach $id
