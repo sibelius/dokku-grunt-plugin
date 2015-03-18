@@ -43,8 +43,8 @@ case "$1" in
     ID=$(docker -D run -i -a stdin $IMAGE /bin/bash -c "$CMD")
     echo "$ID"
     dokku logs "$ID"
-    echo 'docker attach'
-    docker attach $ID
+    #echo 'docker attach'
+    #docker attach $ID
     echo 'docker wait'
     test $(docker wait $ID) -eq 0
     echo 'docker commit'
