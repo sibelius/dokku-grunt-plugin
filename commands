@@ -16,7 +16,7 @@ case "$1" in
     TYPE="$3"
     # Compile with Grunt
     echo "-----> Compiling with grunt build:$TYPE"
-    new_path="\$(find / -name npm | tail -1 | xargs -I % sh -c "dirname %")" 
+    new_path="$(find / -name npm)" 
 
     echo "$new_path"
     command -v npm >/dev/null 2>&1 || echo 'error npm'
