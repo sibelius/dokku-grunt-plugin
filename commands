@@ -4,19 +4,19 @@ source "$(dirname $0)/../common/functions"
 
 TYPE="$3"
 
-CMD=$(cat <<EOF &&
-pwd &&
+CMD=$(cat <<EOF
 cd "/app" &&
 new_path="\$(find / -name npm | tail -1 | xargs -I % sh -c "dirname %")" &&
 PATH="\$PATH:\$new_path" &&
 PATH="\$PATH:\$(npm bin)" &&
-npm install -g grunt &&
-npm install -g grunt-cli &&
-npm install -g bower &&
+npm install grunt &&
+npm install grunt-cli &&
+npm install bower &&
 npm update &&
 bower --allow-root install &&
 bower --allow-root update &&
 grunt build:$TYPE
+echo 'end'
 EOF
 )
 
