@@ -2,7 +2,7 @@
 set -eo pipefail; [[ $DOKKU_TRACE ]] && set -x
 source "$(dirname $0)/../common/functions"
 
-TESTE='prodGce'
+TYPE="$3"
 
 CMD=$(cat <<EOF
 cd "/app" &&
@@ -15,7 +15,7 @@ npm install -g bower &&
 npm update &&
 bower --allow-root install &&
 bower --allow-root update &&
-grunt build:$TESTE &&
+grunt build:$TYPE &&
 EOF
 )
 
