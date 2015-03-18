@@ -4,8 +4,8 @@ source "$(dirname $0)/../common/functions"
 
 case "$1" in
   grunt)
-    [[ -z [ ]] && echo "Please specify an app to run the command on" && exit 1
-    verify_app_name "$2"]
+    [[ -z $2 ]] && echo "Please specify an app to run the command on" && exit 1
+    verify_app_name "$2"
     APP="$2"
                                                                                 
     if [[ -z $3 ]]; then
@@ -21,6 +21,13 @@ case "$1" in
     echo "-----> Deploying $APP ..."
     dokku deploy $APP
     echo "-----> Deploy complete!"
+
+    ;;
+
+  help)
+    cat && cat<<EOF
+    grunt <app> <build_type>                        Use Grunt to build
+EOF
     ;;
 
   *)
