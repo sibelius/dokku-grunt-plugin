@@ -6,9 +6,6 @@ TYPE="$3"
 
 CMD=$(cat <<EOF
 cd "/app" &&
-new_path="\$(find / -name npm | tail -1 | xargs -I % sh -c "dirname %")" &&
-PATH="\$PATH:\$new_path" &&
-PATH="\$PATH:\$(npm bin)" &&
 npm install -g grunt &&
 npm install -g grunt-cli &&
 npm install -g bower &&
@@ -40,8 +37,12 @@ case "$1" in
     #test $(docker wait $id) -eq 0
     #docker commit $id $IMAGE > /dev/null
 
+    echo "$CMD"
+
     echo 'docker run'
     ID=$(docker run -i -a stdin $IMAGE /bin/bash -c "$CMD")
+    echo 'docker attach'
+    docker attach $ID
     echo 'docker wait'
     test $(docker wait $ID) -eq 0
     echo 'docker commit'
