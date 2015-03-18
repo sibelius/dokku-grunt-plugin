@@ -16,6 +16,7 @@ case "$1" in
     TYPE="$3"
     # Compile with Grunt
     echo "-----> Compiling with grunt build:$TYPE"
+    command -v npm >/dev/null 2>&1 || echo 'error npm'
     command -v grunt >/dev/null 2>&1 || echo 'error grunt'
     echo "-----> Deploying $APP ..."
     dokku deploy $APP
