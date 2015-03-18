@@ -7,6 +7,7 @@ case "$1" in
     [[ -z $2 ]] && echo "Please specify an app to run the command on" && exit 1
     verify_app_name "$2"
     APP="$2"
+    IMAGE="dokku/$APP"
                                                                                 
     if [[ -z $3 ]]; then
         echo "Usage: dokku grunt APP BUILDTYPE"
@@ -23,7 +24,20 @@ case "$1" in
     dokku deploy $APP
     echo "-----> Deploy complete!"
 
+    CMD=$(cat <<EOF
+    echo $(pwd) &&
+    command -v npm >/dev/null 2>&1 || echo 'error npm' &&
+    command -v grunt >/dev/null 2>&1 || echo 'error grunt' &&
+    EOF
+    )
+
+    id=$(docker run -d $IMAGE /bin/bash -c "$CMD")
+    docker attach $id
+    test $(docker wait $id) -eq 0
+    docker commit $id $IMAGE > /dev/null
+    echo "-----> Built Grunt"
     ;;
+
 
   help)
     cat && cat<<EOF
