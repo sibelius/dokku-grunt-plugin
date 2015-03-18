@@ -35,15 +35,16 @@ case "$1" in
     # Compile with Grunt
     echo "-----> Compiling with grunt build:$TYPE"
 
-    echo "$CMD"
-
     #id=$(docker run -d $IMAGE /bin/bash -c "$CMD")
     #docker attach $id
     #test $(docker wait $id) -eq 0
     #docker commit $id $IMAGE > /dev/null
 
+    echo 'docker run'
     ID=$(docker run -i -a stdin $IMAGE /bin/bash -c "$CMD")
+    echo 'docker wait'
     test $(docker wait $ID) -eq 0
+    echo 'docker commit'
     docker commit $ID $IMAGE > /dev/null
 
     echo "-----> Finished commands"
